@@ -25,7 +25,7 @@ pipeline {
 
     stage('Helm Install') {
       steps {
-        sh "helm install --install $RELEASE_NAME ./charts/$CHART_NAME --namespace $NAMESPACE"
+        sh "helm install --install $RELEASE_NAME ./charts/$CHART_NAME --namespace $NAMESPACE myguestbook v1/guestbook"
       }
     }
 
