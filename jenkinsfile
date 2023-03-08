@@ -1,0 +1,44 @@
+pipeline {
+  agent any
+
+  environment {
+    KUBECONFIG = credentials('kubeconfig') // Assumes you have a Kubernetes configuration file stored as a Jenkins credential
+    CHART_NAME = 'my-chart'
+    RELEASE_NAME = 'my-release'
+    NAMESPACE = 'my-namespace'
+  }
+
+  //stages {
+    //stage('Checkout') {
+      //steps {
+        //checkout scm
+      //}
+    //}
+   stages{
+        stage('Git checkout'){
+            steps{
+                git credentialsId: 'Jenkins_Github-token', url: 'https://github.com/AndrewBanin/guestbook.git'
+            }
+        }  
+    }
+
+
+    stage('Helm Install') {
+      steps {
+        sh "helm install --install $RELEASE_NAME ./charts/$CHART_NAME --namespace $NAMESPACE"
+      }
+    }
+
+    // stage('Helm Test') {
+    //   steps {
+//         sh "helm test $RELEASE_NAME --namespace $NAMESPACE"
+//       }
+//     }
+
+//     stage('Helm Cleanup') {
+//       steps {
+//         sh "helm delete $RELEASE_NAME --namespace $NAMESPACE"
+//       }
+//     }
+//   }
+
