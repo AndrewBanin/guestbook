@@ -4,8 +4,8 @@ pipeline {
   environment {
     KUBECONFIG = credentials('kubeconfig') // Assumes you have a Kubernetes configuration file stored as a Jenkins credential
     CHART_NAME = 'my-chart'
-    RELEASE_NAME = 'my-release'
-    NAMESPACE = 'my-namespace'
+    RELEASE_NAME = 'guestbook-2.0'
+    NAMESPACE = 'my-guestbook'
   }
 
   //stages {
@@ -25,7 +25,8 @@ pipeline {
 
     stage('Helm Install') {
       steps {
-        sh "helm install --install $RELEASE_NAME ./charts/$CHART_NAME --namespace $NAMESPACE myguestbook v1/guestbook"
+        sh "helm upgrade --namespace $NAMESPACE $RELEASE_NAME v1/guestbook"
+        //sh "helm install --namespace helm-guestbook myguestbook helm101/guestbook/"
       }
     }
 
