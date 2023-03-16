@@ -7,6 +7,7 @@ pipeline {
     RELEASE_NAME = 'guestbook-2.0'
     NAMESPACE = 'my-guestbook'
   }
+}
 
   //stages {
     //stage('Checkout') {
