@@ -7,8 +7,6 @@ pipeline {
     RELEASE_NAME = 'guestbook-2.0'
     NAMESPACE = 'my-guestbook'
   }
-}
-
   //stages {
     //stage('Checkout') {
       //steps {
@@ -21,14 +19,14 @@ pipeline {
                 git credentialsId: 'Jenkins_Github-token', url: 'https://github.com/AndrewBanin/guestbook.git'
             }
         }  
-    }
         stage('Helm Install') {
             steps {
                 sh "helm upgrade --namespace $NAMESPACE $RELEASE_NAME v1/guestbook"
                //sh "helm install --namespace helm-guestbook myguestbook helm101/guestbook/"
       }
     }
-
+   }
+}
     // stage('Helm Test') {
     //   steps {
 //         sh "helm test $RELEASE_NAME --namespace $NAMESPACE"
